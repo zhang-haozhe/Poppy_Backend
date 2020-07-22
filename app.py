@@ -10,6 +10,7 @@ def index():
     if request.method == 'POST':
         # img_pipeline()
         data = request.get_json()
+        img_pipeline()
         return data['hello']
     else:
         return "Hello World"
