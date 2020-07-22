@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     
     if request.method == 'POST':
-        img_pipeline()
+        # img_pipeline()
         data = request.get_json()
         return data['hello']
     else:
