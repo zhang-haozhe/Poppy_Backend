@@ -38,6 +38,8 @@ def img_pipeline():
     # img_nine = cv2.imread("images/opioid-bottle.jpg")  # Good
     # img_ten = cv2.imread("images/warfarin.jpg")  # Good
 
+    # os.environ["PATH"] += os.pathsep + os.path.join(os.path.dirname(__file__), "")
+
     # tr_exe_dir = os.path.join(os.path.abspath(
     #     os.path.dirname((__file__))), "Tesseract-OCR/tesseract.exe")
     # pytesseract.pytesseract.tesseract_cmd = tr_exe_dir
