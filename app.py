@@ -1,5 +1,6 @@
 from flask import Flask, request
 from modules.image_processor import img_pipeline
+import base64
 
 app = Flask(__name__)
 
@@ -8,10 +9,11 @@ app = Flask(__name__)
 def index():
     
     if request.method == 'POST':
-        # img_pipeline()
-        data = request.get_json()
-        # img_pipeline()
-        return data['hello']
+        img_data = request.form['img_string']
+
+        with open("imageToSave.png", "wb") as fh:
+            fh.write(base64.b64decode(img_data))
+        return "file received"
     else:
         return "Hello World"
 
