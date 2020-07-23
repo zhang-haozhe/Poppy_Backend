@@ -22,7 +22,7 @@ def index():
             deciphered_string = txt.read()
 
         print(deciphered_string)
-        return "file received"
+        return deciphered_string
     else:
         return "Hello World"
 
