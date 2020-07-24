@@ -1,6 +1,6 @@
 from spellchecker import SpellChecker
 import re
-from image_processor import img_pipeline
+from .image_processor import img_pipeline
 
 
 def correct_instructions(instruction):

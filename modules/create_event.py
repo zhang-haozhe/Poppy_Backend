@@ -1,5 +1,5 @@
 from ics import Calendar, Event, alarm
-from text_processor import text_pipeline
+from .text_processor import text_pipeline
 from datetime import datetime
 from datetime import timedelta
 
