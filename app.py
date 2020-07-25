@@ -20,7 +20,7 @@ def index():
 
         create_log_file(text_pipeline())
 
-        # remove("imageToSave.png")
+        remove("imageToSave.png")
 
         deciphered_string = ""
         with open("event_log_file.txt", "r") as txt:
