@@ -9,3 +9,4 @@ opencv-python==4.3.0.36
 Pillow==7.2.0 
 pytesseract==0.3.4 
 Werkzeug==1.0.1
+pyspellcheker==0.5.4
