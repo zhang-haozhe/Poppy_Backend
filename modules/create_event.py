@@ -8,6 +8,8 @@ def create_log_file(instruction):
     file_name = open('event_log_file.txt', 'w')
     file_name.write("This is the event below:\n")
     file_name.write(' '.join(instruction[0]) + ", " + ' '.join(instruction[1]))
+    file_name.write("\nThe date is: \n")
+    file_name.write(str(datetime.now()))
     file_name.close()
 
 

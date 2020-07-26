@@ -1,3 +1,5 @@
+import string
+
 from spellchecker import SpellChecker
 import re
 from .image_processor import img_pipeline
@@ -8,7 +10,7 @@ def correct_instructions(instruction):
     # The strings get corrected to their closest words in the corpus
     # "TAGE 1 TAGLET" becomes "TAKE 1 TABLET"
     spell = SpellChecker()
-    spell.distance = 6
+    spell.distance = 3
     keywords = ['every', 'once', 'twice', 'thrice', 'daily', 'hours', 'hour', 'day', 'days',
                 'weeks', 'morning', 'afternoon', 'night', 'one', 'tablet']
     # Tokenize the directive
@@ -34,16 +36,55 @@ def correct_instructions(instruction):
     return token_instruction
 
 
+# This separates words that were incorrectly placed together such as
+def separate_words(word_list):
+    # for index, word in enumerate(word_list):
+    #     if word[0].isalpha():
+    #         if not word.isalpha():
+    #             # Find the index of the non alpha characters
+    #             for char in word:
+    #                 if not char.isalpha():
+    #                     index = word.find(char)
+    #             word_list[index] = word[0:index]
+    #             .append(word[index+1:-1])
+    #         else:
+    #             new_list.append(word_list[index])
+    #
+    #     elif word[0].isdigit():
+    #         if not word.isdigit():
+    #             # Find the index of the non digit characters
+    #             for char in word:
+    #                 if not char.isdigit():
+    #                     index = word.find(char)
+    #             new_list.append(word[0:index])
+    #             new_list.append(word[index+1:-1])
+    #
+    #         else:
+    #             new_list.append(word_list[index])
+    # return new_list
+    return 0
+
+
 def text_pipeline():
     token_duration = []
     token_directive = []
+    stripped_duration = []
+    stripped_directive = []
+    final_duration = []
+    final_directive = []
     duration = ""
     directive = ""
+    # Use this mapping table to remove certain characters from the text
+    table = str.maketrans(
+        "!#$%&'()*+,./:;<=>?@[\]^_`{|}~", ' '*(len(string.punctuation) - 2))
+
     # extract the text from the images
     # img_pipeline() returns the preprocessed text from the image_processor module
     # make the text upppercase, remove newline chracters
     preprocessed_text = img_pipeline().upper()
     preprocessed_text = preprocessed_text.strip("\n")
+    preprocessed_text = preprocessed_text.strip()
+
     # print the text
     print("The text from the image is: ", preprocessed_text)
 
@@ -52,13 +93,16 @@ def text_pipeline():
     # Add try catches
     try:
         directive_searcher = re.search(
-            "([T]?[A][K][E]?|[G]?[I][V][E]?|[A]?[D][M][I][N][I][S][T][E][R]?)(.*)([M]["
+            "([T]?[A][K][E]?|[D][I][R][E][C][T][I][O][N][S]|[G]?[I][V][E]?|[A]?[D][M][I][N][I][S][T][E][R]?)(.*)([M]["
             "O][U][T]?[H]?|[O]?[R]?[A][L][L][Y]?|[T]?[A][B][L][E][T][S]?|[C][A][P][S][U][L][E][S]|"
             "[T][I][M][E][S]?|[D][A]?[I]?[L][Y])",
             preprocessed_text)
         directive = directive_searcher.group(0)
         token_directive = correct_instructions(directive)
-        print("This is the directive:", ' '.join(token_directive))
+        stripped_directive = [w.translate(table) for w in token_directive]
+        string_directive = ' '.join(stripped_directive)
+        final_directive = string_directive.split(' ')
+        print("This is the directive:", string_directive)
     except AttributeError:
         print("Couldn't Find the Directive")
 
@@ -70,12 +114,18 @@ def text_pipeline():
             "[N][O][O][N][S]?|[N][I][G][H][T][S]?)", preprocessed_text)
         duration = duration_searcher.group(0)
         token_duration = correct_instructions(duration)
-        print("This is the duration: ", ' '.join(token_duration))
+        stripped_duration = [w.translate(table) for w in token_duration]
+        string_duration = ' '.join(stripped_duration)
+        final_duration = string_duration.split(' ')
+        print("This is the duration: ", string_duration)
     except AttributeError:
         duration = "EVERY DAY"
         token_duration = correct_instructions(duration)
-        print("This is the duration: ", duration)
+        stripped_duration = [w.translate(table) for w in token_duration]
+        string_duration = ' '.join(stripped_duration)
+        final_duration = string_duration.split(' ')
+        print("This is the duration: ", string_duration)
 
-    print(token_duration)
-    print(token_directive)
+    print(final_duration)
+    print(final_directive)
     return token_directive, token_duration

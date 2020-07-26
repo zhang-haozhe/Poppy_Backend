@@ -1,10 +1,9 @@
 
 from flask import Flask, request
-from modules.image_processor import img_pipeline
 from modules.text_processor import text_pipeline
 from modules.create_event import create_log_file
-import base64
 from os import remove
+import base64
 
 app = Flask(__name__)
 
