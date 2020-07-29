@@ -6,11 +6,19 @@ from datetime import timedelta
 
 def create_log_file(instruction):
     file_name = open('event_log_file.txt', 'w')
-    file_name.write("This is the event below:\n")
-    file_name.write(' '.join(instruction[0]) + ", " + ' '.join(instruction[1]))
-    file_name.write("\nThe date is: \n")
-    file_name.write(str(datetime.now()))
-    file_name.close()
+    if len(instruction[0]) == 0:
+        # file_name.write("Please take another photo. The camera is having a hard time grabbing your information\n")
+        # file_name.write("1. Make sure there isn't a glare in the photo and there is natural lighting\n")
+        # file_name.write("2. Make sure that the text on the bottle is clearly in frame\n")
+        file_name.write("Another One")
+        file_name.close()
+    # So at this point if your event_log_file.txt contains only "Another One" they should take another picture.
+    else:
+        file_name.write("This is the event below:\n")
+        file_name.write(' '.join(instruction[0]) + ", " + ' '.join(instruction[1]))
+        file_name.write("\nThe date is: \n")
+        file_name.write(str(datetime.now()))
+        file_name.close()
 
 
 # def create_ics_file(duration_directive_tuple):

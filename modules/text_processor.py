@@ -36,35 +36,6 @@ def correct_instructions(instruction):
     return token_instruction
 
 
-# This separates words that were incorrectly placed together such as
-def separate_words(word_list):
-    # for index, word in enumerate(word_list):
-    #     if word[0].isalpha():
-    #         if not word.isalpha():
-    #             # Find the index of the non alpha characters
-    #             for char in word:
-    #                 if not char.isalpha():
-    #                     index = word.find(char)
-    #             word_list[index] = word[0:index]
-    #             .append(word[index+1:-1])
-    #         else:
-    #             new_list.append(word_list[index])
-    #
-    #     elif word[0].isdigit():
-    #         if not word.isdigit():
-    #             # Find the index of the non digit characters
-    #             for char in word:
-    #                 if not char.isdigit():
-    #                     index = word.find(char)
-    #             new_list.append(word[0:index])
-    #             new_list.append(word[index+1:-1])
-    #
-    #         else:
-    #             new_list.append(word_list[index])
-    # return new_list
-    return 0
-
-
 def text_pipeline():
     token_duration = []
     token_directive = []
@@ -76,7 +47,7 @@ def text_pipeline():
     directive = ""
     # Use this mapping table to remove certain characters from the text
     table = str.maketrans(
-        "!#$%&'()*+,./:;<=>?@[\]^_`{|}~", ' '*(len(string.punctuation) - 2))
+        "!#$%&'()*+,./:;<=>?@[\]^_`{|}~", ' ' * (len(string.punctuation) - 2))
 
     # extract the text from the images
     # img_pipeline() returns the preprocessed text from the image_processor module
