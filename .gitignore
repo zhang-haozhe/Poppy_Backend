@@ -122,3 +122,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.idea/
+.idea
+tessaract_text.txt
+
+event_log_file.txt
