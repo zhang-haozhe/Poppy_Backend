@@ -24,6 +24,7 @@ def resize(img):
 
 
 def img_pipeline():
+    # pytesseract.pytesseract.tesseract_cmd = r".\Tesseract-OCR\tesseract.exe"
 
     # Reading in the images to process
     # Test images
@@ -41,13 +42,10 @@ def img_pipeline():
     # tr_exe_dir = os.path.join(os.path.abspath(
     #     os.path.dirname((__file__))), "Tesseract-OCR/tesseract.exe")
     # pytesseract.pytesseract.tesseract_cmd = tr_exe_dir
-
-    img_list = []
-
     pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-
+    img_list = []
     # find the file with a .png extension
-    for file in glob.glob('*.png'):
+    for file in glob.glob('imageToSave.png'):
         img_list.append(file)
 
     if len(img_list) == 0:
