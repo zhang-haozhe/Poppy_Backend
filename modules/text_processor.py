@@ -2,7 +2,7 @@ import string
 
 from spellchecker import SpellChecker
 import re
-from image_processor import img_pipeline
+from .image_processor import img_pipeline
 
 
 def removes_whitespace(instruction):
@@ -78,7 +78,7 @@ def text_pipeline():
     # Add try catches
     try:
         directive_searcher = re.search(
-            "([T]?[A][K][E]?|[D][I][R][E][C][T][I][O][N][S]|[G]?[I][V][E]?|[A]?[D][M][I][N][I][S][T][E][R]?)(.*)([M]["
+            "([T][A][K][E]|[D][I][R][E][C][T][I][O][N][S]|[G]?[I][V][E]?|[A]?[D][M][I][N][I][S][T][E][R]?)(.*)([M]["
             "O][U][T]?[H]?|[O]?[R]?[A][L][L][Y]?|[T]?[A][B][L][E][T][S]?|[C][A][P][S][U][L][E][S]|"
             "[T][I][M][E][S]?|[D][A]?[I]?[L][Y])",
             preprocessed_text)
@@ -93,7 +93,7 @@ def text_pipeline():
 
     try:
         duration_searcher = re.search(
-            "([E]?[V]?[E][R][Y]|[D][A][I][L][Y])(.*)"
+            "([E][V]?[E][R][Y]|[D][A][I][L][Y])(.*)"
             "([D][A][I][L][Y]|[H]?[O][U][R][S]?|"
             "[D][A][Y][S]?|[W][E][E][K][S]|[M][O][R][N][I][N][G][S]?|[A][F][T][E][R]"
             "[N][O][O][N][S]?|[N][I][G][H][T][S]?)", preprocessed_text)
