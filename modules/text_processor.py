@@ -2,7 +2,7 @@ import string
 
 from spellchecker import SpellChecker
 import re
-from image_processor import img_pipeline
+from .image_processor import img_pipeline
 
 
 def removes_whitespace(instruction):
@@ -11,7 +11,8 @@ def removes_whitespace(instruction):
 
 
 def make_digit(instructions):
-    frequency = {'ONCE': 1, 'TWICE': 2, 'THRICE': 3, 'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4, 'FIVE': 5}
+    frequency = {'ONCE': 1, 'TWICE': 2, 'THRICE': 3,
+                 'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4, 'FIVE': 5}
     for elem in frequency.keys():
         for indx, part in enumerate(instructions):
             if instructions[indx] == elem:

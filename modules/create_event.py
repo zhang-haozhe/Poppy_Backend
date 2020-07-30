@@ -1,5 +1,5 @@
 from ics import Calendar, Event, alarm
-from text_processor import text_pipeline
+from .text_processor import text_pipeline
 from datetime import datetime
 from datetime import timedelta
 
@@ -25,7 +25,7 @@ def create_log_file(instruction):
                     break
                 else:
                     time_unit_one = 1
-            curr_time = datetime.now()
+            curr_time = datetime.now() + timedelta(minutes=30)
             file_name.write("\nThe alarms are set for: \n")
             for _ in range(time_unit_one):
                 event = curr_time + timedelta(days=1)
@@ -39,7 +39,7 @@ def create_log_file(instruction):
                     break
                 else:
                     time_unit_one = 1
-            curr_time = datetime.now()
+            curr_time = datetime.now() + timedelta(minutes=30)
             file_name.write("\nThe alarms are set for: \n")
             for _ in range(time_unit_one):
                 event = curr_time + timedelta(hours=time_unit_one)
