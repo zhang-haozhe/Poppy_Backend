@@ -1,10 +1,11 @@
 from ics import Calendar, Event, alarm
-from .text_processor import text_pipeline
+from text_processor import text_pipeline
 from datetime import datetime
 from datetime import timedelta
 
 
 def create_log_file(instruction):
+    time_unit_one = 0
     file_name = open('event_log_file.txt', 'w')
     if len(instruction[0]) == 0:
         # file_name.write("Please take another photo. The camera is having a hard time grabbing your information\n")
@@ -17,8 +18,33 @@ def create_log_file(instruction):
         file_name.write("This is the event below:\n")
         file_name.write(
             ' '.join(instruction[0]) + ", " + ' '.join(instruction[1]))
-        file_name.write("\nThe date is: \n")
-        file_name.write(str(datetime.now() + timedelta(minutes=30)))
+        if instruction[1].__contains__("DAY") | instruction[1].__contains__("DAYS"):
+            for elem in instruction[1]:
+                if elem.isdigit():
+                    time_unit_one = int(elem)
+                    break
+                else:
+                    time_unit_one = 1
+            curr_time = datetime.now()
+            file_name.write("\nThe alarms are set for: \n")
+            for _ in range(time_unit_one):
+                event = curr_time + timedelta(days=1)
+                file_name.write(str(event) + "\n")
+                curr_time = event
+        elif instruction[1].__contains__("HOURS") | instruction[1].__contains__("HOUR"):
+            for elem in instruction[1]:
+                if elem[0].isdigit():
+                    print(elem[0])
+                    time_unit_one = int(elem[0])
+                    break
+                else:
+                    time_unit_one = 1
+            curr_time = datetime.now()
+            file_name.write("\nThe alarms are set for: \n")
+            for _ in range(time_unit_one):
+                event = curr_time + timedelta(hours=time_unit_one)
+                file_name.write(str(event) + "\n")
+                curr_time = event
         file_name.close()
 
 

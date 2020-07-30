@@ -2,7 +2,21 @@ import string
 
 from spellchecker import SpellChecker
 import re
-from .image_processor import img_pipeline
+from image_processor import img_pipeline
+
+
+def removes_whitespace(instruction):
+    result = [item for item in instruction if item.strip()]
+    return result
+
+
+def make_digit(instructions):
+    frequency = {'ONCE': 1, 'TWICE': 2, 'THRICE': 3, 'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4, 'FIVE': 5}
+    for elem in frequency.keys():
+        for indx, part in enumerate(instructions):
+            if instructions[indx] == elem:
+                instructions[indx] = str(frequency.get(elem))
+    return instructions
 
 
 def correct_instructions(instruction):
@@ -97,6 +111,10 @@ def text_pipeline():
         final_duration = string_duration.split(' ')
         print("This is the duration: ", string_duration)
 
+    final_directive = make_digit(removes_whitespace(final_directive))
+    final_duration = make_digit(removes_whitespace(final_duration))
+
     print(final_duration)
     print(final_directive)
-    return token_directive, token_duration
+
+    return final_directive, final_duration
