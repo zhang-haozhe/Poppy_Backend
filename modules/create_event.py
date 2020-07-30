@@ -24,7 +24,7 @@ def create_log_file(instruction):
                     time_unit_one = int(elem)
                     break
                 else:
-                    time_unit_one = 1
+                    time_unit_one = 30
             curr_time = datetime.now() + timedelta(minutes=30)
             file_name.write("\nThe alarms are set for: \n")
             for _ in range(time_unit_one):
