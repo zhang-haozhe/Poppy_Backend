@@ -24,13 +24,13 @@ def create_log_file(instruction):
                     time_unit_one = int(elem)
                     break
                 else:
-                    time_unit_one = 30
-            curr_time = datetime.now() + timedelta(minutes=30)
+                    time_unit_one = 5
+            curr_time = datetime.now() + timedelta(minutes=1)
+            event = curr_time
             file_name.write("\nThe alarms are set for: \n")
             for _ in range(time_unit_one):
-                event = curr_time + timedelta(days=1)
                 file_name.write(str(event) + "\n")
-                curr_time = event
+                event += timedelta(days=1)
         elif instruction[1].__contains__("HOURS") | instruction[1].__contains__("HOUR"):
             for elem in instruction[1]:
                 if elem[0].isdigit():
