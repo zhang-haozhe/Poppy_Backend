@@ -4,6 +4,16 @@ from datetime import datetime
 from datetime import timedelta
 
 
+def times_per_day(instruction):
+    directive = instruction[0]
+    for index, elem in enumerate(directive):
+        if elem.isdigit():
+            if (directive[index + 1] == "TIMES") | (directive[index + 1] == "DAILY"):
+                return int(elem)
+            else:
+                continue
+
+
 def create_log_file(instruction):
     time_unit_one = 0
     file_name = open('event_log_file.txt', 'w')
@@ -17,7 +27,7 @@ def create_log_file(instruction):
     else:
         file_name.write("This is the event below:\n")
         file_name.write(
-            ' '.join(instruction[0]) + ", " + ' '.join(instruction[1]))
+            ' '.join(instruction[2]) + ", " + ' '.join(instruction[3]))
         if instruction[1].__contains__("DAY") | instruction[1].__contains__("DAYS"):
             for elem in instruction[1]:
                 if elem.isdigit():
@@ -27,10 +37,18 @@ def create_log_file(instruction):
                     time_unit_one = 5
             curr_time = datetime.now() + timedelta(minutes=1)
             event = curr_time
+            num_times = times_per_day(instruction)
             file_name.write("\nThe alarms are set for: \n")
+
+            temp_event = curr_time
             for _ in range(time_unit_one):
                 file_name.write(str(event) + "\n")
-                event += timedelta(days=1)
+                for time in range(num_times - 1):
+                    event += timedelta(hours=4)
+                    file_name.write(str(event) + "\n")
+                event = temp_event + timedelta(days=1)
+                temp_event += timedelta(days=1)
+
         elif instruction[1].__contains__("HOURS") | instruction[1].__contains__("HOUR"):
             for elem in instruction[1]:
                 if elem[0].isdigit():
@@ -40,11 +58,13 @@ def create_log_file(instruction):
                 else:
                     time_unit_one = 1
             curr_time = datetime.now() + timedelta(minutes=30)
+            event = curr_time
+            num_times = times_per_day(instruction)
             file_name.write("\nThe alarms are set for: \n")
-            for _ in range(time_unit_one):
-                event = curr_time + timedelta(hours=time_unit_one)
+            for _ in range(20):
                 file_name.write(str(event) + "\n")
-                curr_time = event
+                event += timedelta(hours=time_unit_one)
+
         file_name.close()
 
 

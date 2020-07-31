@@ -11,13 +11,13 @@ def removes_whitespace(instruction):
 
 
 def make_digit(instructions):
-    frequency = {'ONCE': 1, 'TWICE': 2, 'THRICE': 3,
-                 'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4, 'FIVE': 5}
+    instr_copy = instructions.copy()
+    frequency = {'ONCE': 1, 'TWICE': 2, 'THRICE': 3, 'ONE': 1, 'TWO': 2, 'THREE': 3, 'FOUR': 4, 'FIVE': 5}
     for elem in frequency.keys():
-        for indx, part in enumerate(instructions):
-            if instructions[indx] == elem:
-                instructions[indx] = str(frequency.get(elem))
-    return instructions
+        for indx, part in enumerate(instr_copy):
+            if instr_copy[indx] == elem:
+                instr_copy[indx] = str(frequency.get(elem))
+    return instr_copy
 
 
 def correct_instructions(instruction):
@@ -60,6 +60,7 @@ def text_pipeline():
     final_directive = []
     duration = ""
     directive = ""
+    list_instruct = []
     # Use this mapping table to remove certain characters from the text
     table = str.maketrans(
         "!#$%&'()*+,./:;<=>?@[\]^_`{|}~", ' ' * (len(string.punctuation) - 2))
@@ -112,10 +113,11 @@ def text_pipeline():
         final_duration = string_duration.split(' ')
         print("This is the duration: ", string_duration)
 
-    final_directive = make_digit(removes_whitespace(final_directive))
-    final_duration = make_digit(removes_whitespace(final_duration))
+    final_directive = removes_whitespace(final_directive)
+    final_duration = removes_whitespace(final_duration)
 
     print(final_duration)
     print(final_directive)
 
-    return final_directive, final_duration
+    list_instruct.extend([make_digit(final_directive), make_digit(final_duration), final_directive, final_duration])
+    return list_instruct
