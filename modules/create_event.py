@@ -7,11 +7,12 @@ from datetime import timedelta
 def times_per_day(instruction):
     directive = instruction[0]
     for index, elem in enumerate(directive):
-        if elem.isdigit():
+        times = elem
+        if times.isdigit():
             if (directive[index + 1] == "TIMES") | (directive[index + 1] == "DAILY"):
-                return int(elem)
-            else:
-                continue
+                return int(times)
+        elif index == len(directive) - 1:
+            return 1
 
 
 def is_in_time(start, end, current):
