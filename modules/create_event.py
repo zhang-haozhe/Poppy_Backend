@@ -22,7 +22,7 @@ def is_in_time(start, end, current):
                                                                                                                   ":%M:%S") <= end.now().strftime("%H:%M:%S"))
 
 
-def create_log_file(instruction):
+def create_log_file(instruction, isTesting):
     start = datetime.now().replace(hour=8, minute=0, second=0)
     end = datetime.now().replace(hour=22, minute=0, second=0)
     time_unit_one = 0
@@ -78,6 +78,9 @@ def create_log_file(instruction):
             for _ in range(20):
                 file_name.write(str(event) + "\n")
                 event += timedelta(hours=time_unit_one)
+
+         if(isTesting == 1):
+             return file_name      
 
         file_name.close()
 

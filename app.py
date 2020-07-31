@@ -17,7 +17,7 @@ def index():
         with open("imageToSave.png", "wb") as fh:
             fh.write(base64.b64decode(img_data))
 
-        create_log_file(text_pipeline())
+        create_log_file(text_pipeline(), 0)
 
         remove("imageToSave.png")
 
