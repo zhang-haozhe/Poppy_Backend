@@ -14,7 +14,17 @@ def times_per_day(instruction):
                 continue
 
 
+def is_in_time(start, end, current):
+    if start < end:
+        return start.now().strftime("%H:%M:%S") <= current.now().strftime("%H:%M:%S") <= end.now().strftime("%H:%M:%S")
+    else:
+        return (current.now().strftime("%H:%M:%S") >= start.now().strftime("%H:%M:%S")) | (current.now().strftime("%H"
+                                                                                                                  ":%M:%S") <= end.now().strftime("%H:%M:%S"))
+
+
 def create_log_file(instruction):
+    start = datetime.now().replace(hour=8, minute=0, second=0)
+    end = datetime.now().replace(hour=22, minute=0, second=0)
     time_unit_one = 0
     file_name = open('event_log_file.txt', 'w')
     if len(instruction[0]) == 0:
@@ -40,7 +50,11 @@ def create_log_file(instruction):
             num_times = times_per_day(instruction)
             file_name.write("\nThe alarms are set for: \n")
 
-            temp_event = curr_time
+            if not is_in_time(start, end, curr_time):
+                temp_event = datetime.strptime(start, '%H:%M:%S')
+            else:
+                temp_event = curr_time
+
             for _ in range(time_unit_one):
                 file_name.write(str(event) + "\n")
                 for time in range(num_times - 1):
