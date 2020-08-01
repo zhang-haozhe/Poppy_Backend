@@ -19,11 +19,12 @@ def index():
 
         create_log_file(text_pipeline())
 
-        remove("imageToSave.png")
-
         deciphered_string = ""
         with open("event_log_file.txt", "r") as txt:
             deciphered_string = txt.read()
+
+        remove("imageToSave.png")
+        remove("tessaract_text.txt")
 
         print(deciphered_string)
         return deciphered_string
